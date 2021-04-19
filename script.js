@@ -2,7 +2,7 @@ const navMenu = document.getElementById("menu");
 const inputForm = document.getElementById("inputForm");
 const regForm = document.getElementById("regForm");
 const logInOut = document.getElementById("login");
-const checkbox = document.getElementById("checkbox");
+const checkBox = document.getElementById("checkBox");
 
 var loginStatus = document.getElementById("loginStatus");
 var secretContent = document.getElementById("secretContent");
@@ -28,7 +28,37 @@ function showLoggedIn() {
     logoutButton.innerHTML = "Log out";
     inputForm.append(logoutButton);
     logoutButton.addEventListener("click", logOut);
+    newsletterButton = document.createElement("button");
+    newsletterButton.addEventListener("click", subToggle);
+    if (localStorage.getItem("newsletter") == "true") {
+        newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
+    } else {
+        newsletterButton.innerHTML = "Subscribe to our newsletter!";
+    }
+    checkBox.append(newsletterButton);
     loginStatus.innerHTML = "You are logged in, " + localStorage.getItem("userId") + "!";
+
+}
+
+function subToggle(){
+    if (localStorage.getItem("newsletter") == "true") {
+        newsletterButton.innerHTML = "Subscribe to our newsletter!";
+        localStorage.setItem("newsletter",false);
+    } else {
+        newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
+        localStorage.setItem("newsletter",true);
+    }
+    
+    fetch("http://localhost:3000/users/newstoggle",{
+        method:'POST',
+        body: JSON.stringify({
+            id: localStorage.getItem("userId"),
+            newsletter_consent: localStorage.getItem("newsletter")
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
 }
 
 function showRegister() {
@@ -95,6 +125,7 @@ function logOut() {
     showNotLoggedIn();
     loginStatus.innerHTML = "You've been logged out!";
     localStorage.removeItem("userId");
+    localStorage.removeItem("newsletter");
 }
 
 function cancel() {
@@ -131,7 +162,9 @@ function checkLogin() {
             errorOut(403);
         }
         else{ response.json().then((data) => {
-            localStorage.setItem('userId', data);
+            localStorage.setItem('userId', data.id);
+            localStorage.setItem('newsletter', data.newsletter_consent);
+            console.log(localStorage.getItem("newsletter"));
             clearLogin();
             showLoggedIn();
         });
@@ -149,6 +182,7 @@ function clearLogin() {
 }
 
 function clearLogout() {
+    newsletterButton.remove();
     logoutButton.remove();
 }
 
