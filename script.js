@@ -3,9 +3,11 @@ const inputForm = document.getElementById("inputForm");
 const regForm = document.getElementById("regForm");
 const logInOut = document.getElementById("login");
 const checkBox = document.getElementById("checkBox");
+const loginStatus = document.getElementById("loginStatus");
+const secretContent = document.getElementById("secretContent");
 
-var loginStatus = document.getElementById("loginStatus");
-var secretContent = document.getElementById("secretContent");
+//change fetchURL to http://127.0.0.1:3000 for local
+const fetchURL = "http://newslettergetter.herokuapp.com";
 
 var formEmail;
 var formPass;
@@ -42,7 +44,7 @@ function showLoggedIn() {
 
 function subToggle(){
     
-    fetch("http://newslettergetter.herokuapp.com/users/newstoggle",{
+    fetch(fetchURL+"/users/newstoggle",{
         method:'POST',
         body: JSON.stringify({
             id: localStorage.getItem("userId"),
@@ -153,7 +155,7 @@ function checkLogin() {
         loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
     } else {
 
-    fetch("http://newslettergetter.herokuapp.com/users",{
+    fetch(fetchURL+"/users",{
         method:'POST',
         body: JSON.stringify({
             email: attemptEmail,
@@ -200,7 +202,7 @@ function register() {
     if (newEmailT == false || newPassT == false) {
         loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
     } else {
-        fetch("http://newslettergetter.herokuapp.com/users/reg",{
+        fetch(fetchURL+"/users/reg",{
             method:'POST',
             body: JSON.stringify({
                 id: 1,
