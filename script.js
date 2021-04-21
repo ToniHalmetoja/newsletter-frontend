@@ -36,13 +36,13 @@ function showLoggedIn() {
         newsletterButton.innerHTML = "Subscribe to our newsletter!";
     }
     checkBox.append(newsletterButton);
-    loginStatus.innerHTML = "You are logged in, " + localStorage.getItem("userId") + "!";
+    loginStatus.innerHTML = "You are logged in with userID " + localStorage.getItem("userId") + "!";
 
 }
 
 function subToggle(){
     
-    fetch("http://localhost:3000/users/newstoggle",{
+    fetch("http://newslettergetter.herokuapp.com/users/newstoggle",{
         method:'POST',
         body: JSON.stringify({
             id: localStorage.getItem("userId"),
@@ -54,7 +54,6 @@ function subToggle(){
     })
     .then(function(response) {
         response.json().then((data) => {
-            console.log(data.result);
             if(data.result == false){
                 newsletterButton.innerHTML = "Subscribe to our newsletter!";
                 localStorage.setItem("newsletter",false);
@@ -154,7 +153,7 @@ function checkLogin() {
         loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
     } else {
 
-    fetch("http://localhost:3000/users",{
+    fetch("http://newslettergetter.herokuapp.com/users",{
         method:'POST',
         body: JSON.stringify({
             email: attemptEmail,
@@ -201,7 +200,7 @@ function register() {
     if (newEmailT == false || newPassT == false) {
         loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
     } else {
-        fetch("http://localhost:3000/users/reg",{
+        fetch("http://newslettergetter.herokuapp.com/users/reg",{
             method:'POST',
             body: JSON.stringify({
                 id: 1,
@@ -221,7 +220,9 @@ function register() {
             }
             else{
                 cancel();
-                loginStatus.innerHTML = response.body;
+                response.text().then(function (text) {
+                    loginStatus.innerHTML = text;
+                });
             }
         })
     }
