@@ -79,6 +79,10 @@ button:active:after {
   transition: 0s
 }
 
+button:hover{
+  background-color: #5aa8a8;
+}
+
 #newsletter {
     margin-top:1%;
     -ms-transform: scale(2); /* IE */
