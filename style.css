@@ -43,16 +43,40 @@ input {
 }
 
 button {
+  position: relative;
   margin-right: 10px;
   background-color: #ccffff;
   border: none;
   color: black;
   padding: 5px;
   text-align: center;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
   text-decoration: none;
   font-family: 'Merriweather Sans', sans-serif;
   display: inline-block;
+  overflow: hidden;
   font-size: 1.2em;
+}
+
+button:after {
+  content: "";
+  background: #276064;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px!important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
 }
 
 #newsletter {
