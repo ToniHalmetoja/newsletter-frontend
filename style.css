@@ -61,7 +61,7 @@ button {
 
 button:after {
   content: "";
-  background: #276064;
+  background: #ffffff;
   display: block;
   position: absolute;
   padding-top: 300%;
@@ -80,7 +80,8 @@ button:active:after {
 }
 
 button:hover{
-  background-color: #5aa8a8;
+  color: #ccffff;
+  background-color: black;
 }
 
 #newsletter {
