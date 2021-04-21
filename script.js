@@ -41,13 +41,6 @@ function showLoggedIn() {
 }
 
 function subToggle(){
-    if (localStorage.getItem("newsletter") == "true") {
-        newsletterButton.innerHTML = "Subscribe to our newsletter!";
-        localStorage.setItem("newsletter",false);
-    } else {
-        newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
-        localStorage.setItem("newsletter",true);
-    }
     
     fetch("http://localhost:3000/users/newstoggle",{
         method:'POST',
@@ -58,6 +51,20 @@ function subToggle(){
         headers: {
             'Content-Type': 'application/json'
         }
+    })
+    .then(function(response) {
+        response.json().then((data) => {
+            console.log(data.result);
+            if(data.result == false){
+                newsletterButton.innerHTML = "Subscribe to our newsletter!";
+                localStorage.setItem("newsletter",false);
+            }
+            else if(data.result == true){
+                newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
+                localStorage.setItem("newsletter",true);
+            }    
+            
+        });
     })
 }
 
@@ -159,12 +166,14 @@ function checkLogin() {
     })
     .then(function(response) {
         if (response.status == 403) {
-            errorOut(403);
+            response.text().then(function (text) {
+                errorOut(403,text);
+            });
+           
         }
         else{ response.json().then((data) => {
             localStorage.setItem('userId', data.id);
             localStorage.setItem('newsletter', data.newsletter_consent);
-            console.log(localStorage.getItem("newsletter"));
             clearLogin();
             showLoggedIn();
         });
@@ -206,22 +215,18 @@ function register() {
         })
         .then(function(response) {
             if (response.status == 409) {
-                errorOut(409);
+                response.text().then(function (text) {
+                    errorOut(409,text);
+                });
             }
             else{
                 cancel();
-                loginStatus.innerHTML = "You have registered. Please log in with your new username and password.";
+                loginStatus.innerHTML = response.body;
             }
         })
     }
 }
 
-function errorOut(code){
-    if(code==409){
-        loginStatus.innerHTML = "Registration failed!";
-    }
-    else if(code==403){
-        loginStatus.innerHTML = "Invalid username or password";
-    }
-
+function errorOut(code,message){
+    loginStatus.innerHTML = message + " Error code: " + code;
 }
