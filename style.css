@@ -10921,7 +10921,7 @@ button:hover{
     padding: 10px;
 }
 
-span {
+#loginStatus {
   font-family: 'Merriweather Sans', sans-serif;
   color: #ccffff;
   font-size: 1.2em;
