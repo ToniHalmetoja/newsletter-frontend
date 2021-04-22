@@ -125,7 +125,7 @@ function showNotLoggedIn() {
     regButton = document.createElement("button");
     regButton.innerHTML = "Register";
     buttons.append(regButton);
-    loginButton.addEventListener("touchstart", checkLogin);
+    rebButton.addEventListener("touchstart", showRegister);
     regButton.addEventListener("click", showRegister);
     loginStatus.innerHTML = "Please log in, unknown user!";
 }
