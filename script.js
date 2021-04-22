@@ -45,9 +45,8 @@ function showLoggedIn() {
 
 }
 
-function subToggle(evt) {
+function subToggle() {
 
-    evt.preventDefault();
 
     fetch(fetchURL + "/users/newstoggle", {
             method: 'POST',
@@ -131,8 +130,7 @@ function showNotLoggedIn() {
     loginStatus.innerHTML = "Please log in, unknown user!";
 }
 
-function logOut(evt) {
-    evt.preventDefault();
+function logOut() {
     clearLogout();
     showNotLoggedIn();
     loginStatus.innerHTML = "You've been logged out!";
@@ -140,8 +138,7 @@ function logOut(evt) {
     localStorage.removeItem("newsletter");
 }
 
-function cancel(evt) {
-    evt.preventDefault();
+function cancel() {
     newEmail.remove();
     newPass.remove();
     regBut.remove();
@@ -151,8 +148,7 @@ function cancel(evt) {
     showNotLoggedIn();
 }
 
-function checkLogin(evt) {
-    evt.preventDefault();
+function checkLogin() {
     let attemptEmail = formEmail.value;
     let attemptPass = formPass.value;
 
@@ -189,8 +185,7 @@ function checkLogin(evt) {
     }
 }
 
-function register(evt) {
-    evt.preventDefault();
+function register() {
     let newEmailT = newEmail.value;
     let newPassT = newPass.value;
     if (newEmailT == false || newPassT == false) {
