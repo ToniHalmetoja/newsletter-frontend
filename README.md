@@ -8,7 +8,7 @@ Functional demo at https://tonihalmetoja.github.io/newsletter-frontend/.
 
 # Guide:
 
-Frontend:
+# Frontend:
 
 Example user: janne@janne.com, password: test
 
