@@ -125,7 +125,7 @@ function showNotLoggedIn() {
     regButton = document.createElement("button");
     regButton.innerHTML = "Register";
     buttons.append(regButton);
-    rebButton.addEventListener("touchstart", showRegister);
+    regButton.addEventListener("touchstart", showRegister);
     regButton.addEventListener("click", showRegister);
     loginStatus.innerHTML = "Please log in, unknown user!";
 }
@@ -213,7 +213,13 @@ function register(evt) {
                         errorOut(409, text);
                     });
                 } else {
-                    cancel();
+                    newEmail.remove();
+    newPass.remove();
+    regBut.remove();
+    newsletterCheck.remove();
+    newsLabel.remove();
+    cancelBut.remove();
+    showNotLoggedIn();
                     response.text().then(function (text) {
                         loginStatus.innerHTML = text;
                     });
