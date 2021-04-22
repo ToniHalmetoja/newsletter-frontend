@@ -8,7 +8,7 @@ const regButtons = document.getElementById("regButtons");
 const buttons = document.getElementById("buttons");
 
 //change fetchURL to http://127.0.0.1:3000 for local
-const fetchURL = "http://newslettergetter.herokuapp.com";
+const fetchURL = "https://newslettergetter.herokuapp.com";
 
 var formEmail;
 var formPass;
