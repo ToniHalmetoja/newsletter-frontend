@@ -86,7 +86,11 @@ function showRegister() {
     newPass.type = "password";
     newEmail.type = "text";
     cancelBut.innerHTML = "Cancel";
+    cancelBut.addEventListener("touchstart", cancel);
+    cancelBut.addEventListener("click", cancel);
     regBut.innerHTML = "Register!"
+    regBut.addEventListener("touchstart", register);
+    regBut.addEventListener("click", register);
     newsletterCheck.type = "checkbox";
     newsletterCheck.id = "newsletter";
     newsletterCheck.name = "Newsletter";
@@ -99,10 +103,7 @@ function showRegister() {
     regButtons.append(cancelBut);
     checkBox.append(newsletterCheck);
     checkBox.append(newsLabel);
-    regBut.addEventListener("touchstart", register);
-    regBut.addEventListener("click", register);
-    cancelBut.addEventListener("touchstart", cancel);
-    cancelBut.addEventListener("click", cancel);
+
 
 }
 
@@ -124,9 +125,9 @@ function showNotLoggedIn() {
     buttons.append(loginButton);
     regButton = document.createElement("button");
     regButton.innerHTML = "Register";
-    buttons.append(regButton);
     regButton.addEventListener("touchstart", showRegister);
     regButton.addEventListener("click", showRegister);
+    buttons.append(regButton);
     loginStatus.innerHTML = "Please log in, unknown user!";
 }
 
