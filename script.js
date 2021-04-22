@@ -31,8 +31,10 @@ function showLoggedIn() {
     logoutButton.innerHTML = "Log out";
     buttons.append(logoutButton);
     logoutButton.addEventListener("click", logOut);
+    logoutButton.addEventListener("touchstart", logOut);
     newsletterButton = document.createElement("button");
     newsletterButton.addEventListener("click", subToggle);
+    newsletterButton.addEventListener("touchstart", subToggle);
     if (localStorage.getItem("newsletter") == "true") {
         newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
     } else {
@@ -43,7 +45,9 @@ function showLoggedIn() {
 
 }
 
-function subToggle() {
+function subToggle(evt) {
+
+    evt.preventDefault();
 
     fetch(fetchURL + "/users/newstoggle", {
             method: 'POST',
@@ -96,7 +100,10 @@ function showRegister() {
     checkBox.append(newsletterCheck);
     checkBox.append(newsLabel);
     regBut.addEventListener("click", register);
+    regBut.addEventListener("touchstart", register);
     cancelBut.addEventListener("click", cancel);
+    cancelBut.addEventListener("touchstart", cancel);
+
 }
 
 function showNotLoggedIn() {
@@ -113,15 +120,18 @@ function showNotLoggedIn() {
     loginButton = document.createElement("button");
     loginButton.innerHTML = "Log in";
     loginButton.addEventListener("click", checkLogin);
+    loginButton.addEventListener("touchstart", checkLogin);
     buttons.append(loginButton);
     regButton = document.createElement("button");
     regButton.innerHTML = "Register";
     buttons.append(regButton);
     regButton.addEventListener("click", showRegister);
+    loginButton.addEventListener("touchstart", showRegister);
     loginStatus.innerHTML = "Please log in, unknown user!";
 }
 
-function logOut() {
+function logOut(evt) {
+    evt.preventDefault();
     clearLogout();
     showNotLoggedIn();
     loginStatus.innerHTML = "You've been logged out!";
@@ -129,7 +139,8 @@ function logOut() {
     localStorage.removeItem("newsletter");
 }
 
-function cancel() {
+function cancel(evt) {
+    evt.preventDefault();
     newEmail.remove();
     newPass.remove();
     regBut.remove();
@@ -139,7 +150,8 @@ function cancel() {
     showNotLoggedIn();
 }
 
-function checkLogin() {
+function checkLogin(evt) {
+    evt.preventDefault();
     let attemptEmail = formEmail.value;
     let attemptPass = formPass.value;
 
@@ -176,7 +188,8 @@ function checkLogin() {
     }
 }
 
-function register() {
+function register(evt) {
+    evt.preventDefault();
     let newEmailT = newEmail.value;
     let newPassT = newPass.value;
     if (newEmailT == false || newPassT == false) {
