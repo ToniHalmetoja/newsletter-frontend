@@ -10895,7 +10895,7 @@ button {
   font-size: 1.2em;
 }
 
-button:after {
+button:active {
   content: "";
   background: #ffffff;
   display: block;
