@@ -6,6 +6,8 @@ If you don't know what this is, though, I doubt you'll find anything of interest
 
 Guide:
 
+The backend can be found here: https://github.com/ToniHalmetoja/newsletter-backend/
+
 Install all dependencies. Express, random-keys, cors, cryptoJS, and mongodb.
 
 Change fetchURL in script.js to whatever URL you want to use.
