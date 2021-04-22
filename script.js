@@ -42,31 +42,30 @@ function showLoggedIn() {
 
 }
 
-function subToggle(){
-    
-    fetch(fetchURL+"/users/newstoggle",{
-        method:'POST',
-        body: JSON.stringify({
-            id: localStorage.getItem("userId"),
-            newsletter_consent: localStorage.getItem("newsletter")
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(function(response) {
-        response.json().then((data) => {
-            if(data.result == false){
-                newsletterButton.innerHTML = "Subscribe to our newsletter!";
-                localStorage.setItem("newsletter",false);
+function subToggle() {
+
+    fetch(fetchURL + "/users/newstoggle", {
+            method: 'POST',
+            body: JSON.stringify({
+                id: localStorage.getItem("userId"),
+                newsletter_consent: localStorage.getItem("newsletter")
+            }),
+            headers: {
+                'Content-Type': 'application/json'
             }
-            else if(data.result == true){
-                newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
-                localStorage.setItem("newsletter",true);
-            }    
-            
-        });
-    })
+        })
+        .then(function (response) {
+            response.json().then((data) => {
+                if (data.result == false) {
+                    newsletterButton.innerHTML = "Subscribe to our newsletter!";
+                    localStorage.setItem("newsletter", false);
+                } else if (data.result == true) {
+                    newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
+                    localStorage.setItem("newsletter", true);
+                }
+
+            });
+        })
 }
 
 function showRegister() {
@@ -84,7 +83,7 @@ function showRegister() {
     newEmail.type = "text";
     cancelBut.innerHTML = "Cancel";
     regBut.innerHTML = "Register!"
-    newsletterCheck.type =  "checkbox";
+    newsletterCheck.type = "checkbox";
     newsletterCheck.id = "newsletter";
     newsletterCheck.name = "Newsletter";
     newsLabel.for = "newsletter";
@@ -106,26 +105,21 @@ function showNotLoggedIn() {
     formEmail.type = "text";
     formEmail.autoComplete = "off";
     inputForm.append(formEmail);
-
     formPass = document.createElement("input");
     formPass.placeholder = "Password";
     formPass.type = "password";
     formPass.autoComplete = "off";
     inputForm.append(formPass);
-
     loginButton = document.createElement("button");
     loginButton.innerHTML = "Log in";
     inputForm.append(loginButton);
     loginButton.addEventListener("click", checkLogin);
-
     regButton = document.createElement("button");
     regButton.innerHTML = "Register";
     inputForm.append(regButton);
     regButton.addEventListener("click", showRegister);
-
     loginStatus.innerHTML = "Please log in, unknown user!";
     secretContent.innerHTML = "";
-
 }
 
 function logOut() {
@@ -147,7 +141,6 @@ function cancel() {
 }
 
 function checkLogin() {
-
     let attemptEmail = formEmail.value;
     let attemptPass = formPass.value;
 
@@ -155,32 +148,65 @@ function checkLogin() {
         loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
     } else {
 
-    fetch(fetchURL+"/users",{
-        method:'POST',
-        body: JSON.stringify({
-            email: attemptEmail,
-            password: attemptPass
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(function(response) {
-        if (response.status == 403) {
-            response.text().then(function (text) {
-                errorOut(403,text);
-            });
-           
-        }
-        else{ response.json().then((data) => {
-            localStorage.setItem('userId', data.id);
-            localStorage.setItem('newsletter', data.newsletter_consent);
-            clearLogin();
-            showLoggedIn();
-        });
-    }
-    })
+        fetch(fetchURL + "/users", {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: attemptEmail,
+                    password: attemptPass
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function (response) {
+                if (response.status == 403) {
+                    response.text().then(function (text) {
+                        errorOut(403, text);
+                    });
 
+                } else {
+                    response.json().then((data) => {
+                        localStorage.setItem('userId', data.id);
+                        localStorage.setItem('newsletter', data.newsletter_consent);
+                        clearLogin();
+                        showLoggedIn();
+                    });
+                }
+            })
+
+    }
+}
+
+function register() {
+    let newEmailT = newEmail.value;
+    let newPassT = newPass.value;
+    if (newEmailT == false || newPassT == false) {
+        loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
+    } else {
+        fetch(fetchURL + "/users/reg", {
+                method: 'POST',
+                body: JSON.stringify({
+                    id: 1,
+                    email: newEmailT,
+                    password: newPassT,
+                    newsletter_consent: newsletterCheck.checked
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function (response) {
+                if (response.status == 409) {
+                    response.text().then(function (text) {
+                        errorOut(409, text);
+                    });
+                } else {
+                    cancel();
+                    response.text().then(function (text) {
+                        loginStatus.innerHTML = text;
+                    });
+                }
+            })
     }
 }
 
@@ -196,40 +222,6 @@ function clearLogout() {
     logoutButton.remove();
 }
 
-function register() {
-    let newEmailT = newEmail.value;
-    let newPassT = newPass.value;
-    if (newEmailT == false || newPassT == false) {
-        loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
-    } else {
-        fetch(fetchURL+"/users/reg",{
-            method:'POST',
-            body: JSON.stringify({
-                id: 1,
-                email: newEmailT,
-                password: newPassT,
-                newsletter_consent: newsletterCheck.checked
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(function(response) {
-            if (response.status == 409) {
-                response.text().then(function (text) {
-                    errorOut(409,text);
-                });
-            }
-            else{
-                cancel();
-                response.text().then(function (text) {
-                    loginStatus.innerHTML = text;
-                });
-            }
-        })
-    }
-}
-
-function errorOut(code,message){
+function errorOut(code, message) {
     loginStatus.innerHTML = message + " Error code: " + code;
 }
