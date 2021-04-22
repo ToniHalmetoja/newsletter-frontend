@@ -4,6 +4,7 @@ const regForm = document.getElementById("regForm");
 const logInOut = document.getElementById("login");
 const checkBox = document.getElementById("checkBox");
 const loginStatus = document.getElementById("loginStatus");
+const buttons = document.getElementById("buttons");
 const secretContent = document.getElementById("secretContent");
 
 //change fetchURL to http://127.0.0.1:3000 for local
@@ -28,7 +29,7 @@ if (localStorage.getItem("userId") != null) {
 function showLoggedIn() {
     logoutButton = document.createElement("button");
     logoutButton.innerHTML = "Log out";
-    inputForm.append(logoutButton);
+    buttons.append(logoutButton);
     logoutButton.addEventListener("click", logOut);
     newsletterButton = document.createElement("button");
     newsletterButton.addEventListener("click", subToggle);
@@ -112,11 +113,11 @@ function showNotLoggedIn() {
     inputForm.append(formPass);
     loginButton = document.createElement("button");
     loginButton.innerHTML = "Log in";
-    inputForm.append(loginButton);
     loginButton.addEventListener("click", checkLogin);
+    buttons.append(loginButton);
     regButton = document.createElement("button");
     regButton.innerHTML = "Register";
-    inputForm.append(regButton);
+    buttons.append(regButton);
     regButton.addEventListener("click", showRegister);
     loginStatus.innerHTML = "Please log in, unknown user!";
     secretContent.innerHTML = "";

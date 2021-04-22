@@ -10831,7 +10831,7 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-  padding: 20px;
+  padding:20px;
 }
 
 #menu {
@@ -10840,24 +10840,29 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-  padding: 20px;
+  padding:20px;
 }
 
 #inputForm {
-  padding-left: 100px;
+  margin-left:5vw;
+  float: left;
+}
+
+#buttons {
+  margin-left:5vw;
 }
 
 #regForm {
   padding-top: 10px;
-  padding-left: 100px;
+  margin-left:5vw;
 }
 
 #checkBox{
-    padding-left: 100px;
+    margin-left:5vw;
   }
 
 input {
-  font-family: 'Merriweather Sans', sans-serif;
+  font-family: 'Merriweather Sans', sans-serif; 
   margin-right: 10px;
   font-size: 1.2em;
   background-color: #ccffff;
@@ -10939,6 +10944,13 @@ pre {
   color: #ccffff;
 }
 
+h1 {
+  font-family: 'Merriweather Sans', sans-serif;
+  color: #ccffff;
+  font-size: 3em;
+
+  margin-left:5vw;
+}
 
 #foot {
   font-family: 'Merriweather Sans', sans-serif;
