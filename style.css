@@ -10858,12 +10858,11 @@ body {
 }
 
 #regButtons {
-  margin-top:10px;
   margin-left:5vw;
 }
 
 #regForm {
-  padding-top: 10px;
+  padding-bottom:20px;
   margin-left:5vw;
 }
 
@@ -10946,6 +10945,10 @@ h1 {
   color: #ccffff;
   font-size: 3em;
   margin-left:5vw;
+}
+
+#checkBox{
+  margin-top:10px;
 }
 
 #foot {
