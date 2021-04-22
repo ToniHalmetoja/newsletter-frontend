@@ -20,7 +20,7 @@ The backend can be found here: https://github.com/ToniHalmetoja/newsletter-backe
 
 Install all dependencies. Express, random-keys, cors, cryptoJS, and mongodb.
 
-The salt key for password encryption (used in users.js and admin.js) is stored as an environmment variable on Heroku. You'll need to change this to run this on something else. Create an .env and set SALT_KEY.
+The salt key for password encryption (used in users.js and admin.js) is stored as an environment variable on Heroku. You'll need to change this to run this on something else. Create an .env and set SALT_KEY.
 
 Similarly, the API key for database access (in this case, for MongoDB Atlas) is stored as API_KEY, as an environmental variable. Alternatively, change the entire connect URL (in app.js) to wherever your database is stored.
 
