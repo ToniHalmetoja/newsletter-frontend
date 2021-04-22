@@ -10878,6 +10878,7 @@ input {
 }
 
 button {
+  z-index:99;
   position: relative;
   margin-right: 10px;
   background-color: #ccffff;
