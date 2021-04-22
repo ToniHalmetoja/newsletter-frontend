@@ -4,8 +4,8 @@ const regForm = document.getElementById("regForm");
 const logInOut = document.getElementById("login");
 const checkBox = document.getElementById("checkBox");
 const loginStatus = document.getElementById("loginStatus");
+const regButtons = document.getElementById("regButtons");
 const buttons = document.getElementById("buttons");
-const secretContent = document.getElementById("secretContent");
 
 //change fetchURL to http://127.0.0.1:3000 for local
 const fetchURL = "http://newslettergetter.herokuapp.com";
@@ -71,7 +71,6 @@ function subToggle() {
 
 function showRegister() {
     clearLogin();
-    secretContent.innerHTML = "";
     newEmail = document.createElement("input");
     newPass = document.createElement("input");
     regBut = document.createElement("button");
@@ -92,8 +91,8 @@ function showRegister() {
     loginStatus.innerHTML = "Enter a new username and password!";
     regForm.append(newEmail);
     regForm.append(newPass);
-    regForm.append(regBut);
-    regForm.append(cancelBut);
+    regButtons.append(regBut);
+    regButtons.append(cancelBut);
     checkBox.append(newsletterCheck);
     checkBox.append(newsLabel);
     regBut.addEventListener("click", register);
@@ -120,7 +119,6 @@ function showNotLoggedIn() {
     buttons.append(regButton);
     regButton.addEventListener("click", showRegister);
     loginStatus.innerHTML = "Please log in, unknown user!";
-    secretContent.innerHTML = "";
 }
 
 function logOut() {
