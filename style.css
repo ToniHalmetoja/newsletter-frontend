@@ -10916,10 +10916,10 @@ button:active:after {
   transition: 0s
 }
 
-/* button:hover{
+button:hover, button:active{
   color: #ccffff;
   background-color: black;
-} */
+}
 
 #newsletter {
     margin-top:1%;
