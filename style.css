@@ -10841,6 +10841,10 @@ body {
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   padding:20px;
+  font-family: 'Merriweather Sans', sans-serif;
+  color: #ccffff;
+  font-size: 1em;
+  font-weight: 300;
 }
 
 #inputForm {
@@ -10913,11 +10917,6 @@ button:hover{
 
 #newsletter {
     margin-top:1%;
-    -ms-transform: scale(2); /* IE */
-    -moz-transform: scale(2); /* FF */
-    -webkit-transform: scale(2); /* Safari and Chrome */
-    -o-transform: scale(2); /* Opera */
-    transform: scale(2);
     padding: 10px;
 }
 
@@ -10937,19 +10936,10 @@ div {
   font-weight: 300;
 }
 
-.spacer {
-  min-height: 20px;
-}
-
-pre {
-  color: #ccffff;
-}
-
 h1 {
   font-family: 'Merriweather Sans', sans-serif;
   color: #ccffff;
   font-size: 3em;
-
   margin-left:5vw;
 }
 
