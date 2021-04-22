@@ -30,10 +30,10 @@ function showLoggedIn() {
     logoutButton = document.createElement("button");
     logoutButton.innerHTML = "Log out";
     buttons.append(logoutButton);
-    logoutButton.addEventListener("touchstart", logOut);
+    logoutButton.addEventListener("touchend", logOut);
     logoutButton.addEventListener("click", logOut);
     newsletterButton = document.createElement("button");
-    newsletterButton.addEventListener("touchstart", subToggle);
+    newsletterButton.addEventListener("touchend", subToggle);
     newsletterButton.addEventListener("click", subToggle);
     if (localStorage.getItem("newsletter") == "true") {
         newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
@@ -86,10 +86,10 @@ function showRegister() {
     newPass.type = "password";
     newEmail.type = "text";
     cancelBut.innerHTML = "Cancel";
-    cancelBut.addEventListener("touchstart", cancel);
+    cancelBut.addEventListener("touchend", cancel);
     cancelBut.addEventListener("click", cancel);
     regBut.innerHTML = "Register!"
-    regBut.addEventListener("touchstart", register);
+    regBut.addEventListener("touchend", register);
     regBut.addEventListener("click", register);
     newsletterCheck.type = "checkbox";
     newsletterCheck.id = "newsletter";
@@ -120,12 +120,12 @@ function showNotLoggedIn() {
     inputForm.append(formPass);
     loginButton = document.createElement("button");
     loginButton.innerHTML = "Log in";
-    loginButton.addEventListener("touchstart", checkLogin);
+    loginButton.addEventListener("touchend", checkLogin);
     loginButton.addEventListener("click", checkLogin);
     buttons.append(loginButton);
     regButton = document.createElement("button");
     regButton.innerHTML = "Register";
-    regButton.addEventListener("touchstart", showRegister);
+    regButton.addEventListener("touchend", showRegister);
     regButton.addEventListener("click", showRegister);
     buttons.append(regButton);
     loginStatus.innerHTML = "Please log in, unknown user!";
