@@ -26,6 +26,8 @@ if (localStorage.getItem("userId") != null) {
     showNotLoggedIn();
 }
 
+/*Construction functions, to build whatever version of the website is required*/
+
 function showLoggedIn() {
     logoutButton = document.createElement("button");
     logoutButton.innerHTML = "Log out";
@@ -42,35 +44,30 @@ function showLoggedIn() {
     }
     checkBox.append(newsletterButton);
     loginStatus.innerHTML = "You are logged in with userID " + localStorage.getItem("userId") + "!";
-
 }
 
-function subToggle(evt) {
-
-    evt.preventDefault();
-    
-    fetch(fetchURL + "/users/newstoggle", {
-            method: 'POST',
-            body: JSON.stringify({
-                id: localStorage.getItem("userId"),
-                newsletter_consent: localStorage.getItem("newsletter")
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(function (response) {
-            response.json().then((data) => {
-                if (data.result == false) {
-                    newsletterButton.innerHTML = "Subscribe to our newsletter!";
-                    localStorage.setItem("newsletter", false);
-                } else if (data.result == true) {
-                    newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
-                    localStorage.setItem("newsletter", true);
-                }
-
-            });
-        })
+function showNotLoggedIn() {
+    formEmail = document.createElement("input");
+    formEmail.placeholder = "Email";
+    formEmail.type = "text";
+    formEmail.autoComplete = "off";
+    inputForm.append(formEmail);
+    formPass = document.createElement("input");
+    formPass.placeholder = "Password";
+    formPass.type = "password";
+    formPass.autoComplete = "off";
+    inputForm.append(formPass);
+    loginButton = document.createElement("button");
+    loginButton.innerHTML = "Log in";
+    loginButton.addEventListener("touchend", checkLogin);
+    loginButton.addEventListener("click", checkLogin);
+    buttons.append(loginButton);
+    regButton = document.createElement("button");
+    regButton.innerHTML = "Register";
+    regButton.addEventListener("touchend", showRegister);
+    regButton.addEventListener("click", showRegister);
+    buttons.append(regButton);
+    loginStatus.innerHTML = "Please log in, unknown user!";
 }
 
 function showRegister() {
@@ -103,32 +100,34 @@ function showRegister() {
     regButtons.append(cancelBut);
     checkBox.append(newsletterCheck);
     checkBox.append(newsLabel);
-
-
 }
 
-function showNotLoggedIn() {
-    formEmail = document.createElement("input");
-    formEmail.placeholder = "Email";
-    formEmail.type = "text";
-    formEmail.autoComplete = "off";
-    inputForm.append(formEmail);
-    formPass = document.createElement("input");
-    formPass.placeholder = "Password";
-    formPass.type = "password";
-    formPass.autoComplete = "off";
-    inputForm.append(formPass);
-    loginButton = document.createElement("button");
-    loginButton.innerHTML = "Log in";
-    loginButton.addEventListener("touchend", checkLogin);
-    loginButton.addEventListener("click", checkLogin);
-    buttons.append(loginButton);
-    regButton = document.createElement("button");
-    regButton.innerHTML = "Register";
-    regButton.addEventListener("touchend", showRegister);
-    regButton.addEventListener("click", showRegister);
-    buttons.append(regButton);
-    loginStatus.innerHTML = "Please log in, unknown user!";
+/*Fetch functions, all triggered by clicking buttons on the website*/
+
+function subToggle(evt) {
+    evt.preventDefault(); /*Handling of click/touch - best way I could find to have to respond to both touchend and 
+    click without triggering twice*/
+    fetch(fetchURL + "/users/newstoggle", {
+            method: 'POST',
+            body: JSON.stringify({
+                id: localStorage.getItem("userId"),
+                newsletter_consent: localStorage.getItem("newsletter")
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function (response) {
+            response.json().then((data) => {
+                if (data.result == false) {
+                    newsletterButton.innerHTML = "Subscribe to our newsletter!";
+                    localStorage.setItem("newsletter", false);
+                } else if (data.result == true) {
+                    newsletterButton.innerHTML = "Unsubscribe from our newsletter!";
+                    localStorage.setItem("newsletter", true);
+                }
+            });
+        })
 }
 
 function logOut(evt) {
@@ -142,25 +141,18 @@ function logOut(evt) {
 
 function cancel(evt) {
     evt.preventDefault();
-    newEmail.remove();
-    newPass.remove();
-    regBut.remove();
-    newsletterCheck.remove();
-    newsLabel.remove();
-    cancelBut.remove();
+    clearRegister();
     showNotLoggedIn();
 }
 
 function checkLogin(evt) {
     evt.preventDefault();
-
     let attemptEmail = formEmail.value;
     let attemptPass = formPass.value;
-
     if (attemptEmail == false || attemptPass == false) {
         loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
     } else {
-
+        loginStatus.innerHTML = "Login request received. Waking up the backend...";
         fetch(fetchURL + "/users", {
                 method: 'POST',
                 body: JSON.stringify({
@@ -186,7 +178,6 @@ function checkLogin(evt) {
                     });
                 }
             })
-
     }
 }
 
@@ -197,6 +188,7 @@ function register(evt) {
     if (newEmailT == false || newPassT == false) {
         loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
     } else {
+        loginStatus.innerHTML = "Registration request received. Waking up the backend...";
         fetch(fetchURL + "/users/reg", {
                 method: 'POST',
                 body: JSON.stringify({
@@ -215,13 +207,8 @@ function register(evt) {
                         errorOut(409, text);
                     });
                 } else {
-                    newEmail.remove();
-    newPass.remove();
-    regBut.remove();
-    newsletterCheck.remove();
-    newsLabel.remove();
-    cancelBut.remove();
-    showNotLoggedIn();
+                    clearRegister();
+                    showNotLoggedIn();
                     response.text().then(function (text) {
                         loginStatus.innerHTML = text;
                     });
@@ -229,6 +216,8 @@ function register(evt) {
             })
     }
 }
+
+/*Maintenance functions that remove elements no longer required, as well as some basic error-handling*/
 
 function clearLogin() {
     formEmail.remove();
@@ -240,6 +229,15 @@ function clearLogin() {
 function clearLogout() {
     newsletterButton.remove();
     logoutButton.remove();
+}
+
+function clearRegister() {
+    newEmail.remove();
+    newPass.remove();
+    regBut.remove();
+    newsletterCheck.remove();
+    newsLabel.remove();
+    cancelBut.remove();
 }
 
 function errorOut(code, message) {
