@@ -187,7 +187,11 @@ function register(evt) {
     let newPassT = newPass.value;
     if (newEmailT == false || newPassT == false) {
         loginStatus.innerHTML = "Fields cannot be empty! Enter a new username and password to register.";
-    } else {
+    } 
+    else if(validateEmail(newEmailT)==false){
+        loginStatus.innerHTML = "Invalid email address format! Please double-check it.";
+    }
+    else {
         loginStatus.innerHTML = "Registration request received. Waking up the backend...";
         fetch(fetchURL + "/users/reg", {
                 method: 'POST',
@@ -238,6 +242,16 @@ function clearRegister() {
     newsletterCheck.remove();
     newsLabel.remove();
     cancelBut.remove();
+}
+
+function validateEmail(inputText){
+    var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if(inputText.match(mailformat)){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 function errorOut(code, message) {
