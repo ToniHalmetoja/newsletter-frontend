@@ -22,7 +22,7 @@ The backend can be found here: https://github.com/ToniHalmetoja/newsletter-backe
 
 1) Install Node (and NPM). 
 
-2) Further, install all NPM dependencies: express, random-keys, cors, cryptoJS, and mongodb. npm-install should cover it.
+2) Further, install all NPM dependencies: express, random-keys, cors, cryptoJS, and mongodb. npm install should cover it.
 
 3) The salt key for password encryption (used in users.js and admin.js) is stored as an environment variable on Heroku. You'll need to change this to run this on something else. Create an .env and set SALT_KEY.
 
